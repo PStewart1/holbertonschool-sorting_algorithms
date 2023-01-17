@@ -25,16 +25,16 @@ void merge(int arr[], int l, int m, int r)
     /* Copy data to temp arrays L[] and R[] */
     for (i = 0; i < n1; i++)
         L[i] = arr[l + i];
-    printf("[left]:");
-    for(p = 0; p < n1; p++)
-      printf(" %d", L[p]);
+    printf("[left]: %d", L[0]);
+    for(p = 1; p < n1; p++)
+      printf(", %d", L[p]);
     printf("\n");
 
     for (j = 0; j < n2; j++)
         R[j] = arr[m + 1 + j];
-    printf("[right]:");
-    for(p = 0; p < n2; p++)
-      printf(" %d", R[p]);
+    printf("[right]: %d", R[0]);
+    for(p = 1; p < n2; p++)
+      printf(", %d", R[p]);
     printf("\n");
 
     /* Merge the temp arrays back into arr[l..r]*/
@@ -73,9 +73,9 @@ void merge(int arr[], int l, int m, int r)
     free(L);
     free(R);
 
-    printf("[Done]:");
-    for(p = l; p <= r; p++)
-      printf(" %d", arr[p]);
+    printf("[Done]: %d", arr[l]);
+    for(p = l + 1; p <= r; p++)
+      printf(", %d", arr[p]);
     printf("\n");
 }
 
