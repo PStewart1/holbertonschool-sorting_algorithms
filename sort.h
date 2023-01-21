@@ -25,5 +25,6 @@ void selection_sort(int *array, size_t size);
 void quick_sort(int *array, size_t size);
 
 void merge_sort(int *array, size_t size);
+void print_subarray(int *arr, int start, int end);
 
 #endif /* SORT_H */

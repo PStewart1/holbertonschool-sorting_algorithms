@@ -3,102 +3,68 @@
 /**
  * merge - rearranges subarray before re-merging them back together
  * @arr: array of ints
- * @l: left side of array
- * @m: middle of array
- * @r: right side of array
+ * @temp: temporary array
+ * @left: left side of array
+ * @mid: middle of array
+ * @right: right side of array
  * Return: void
  */
 
-void merge(int arr[], int l, int m, int r)
+void merge(int *array, int *temp, int left, int mid, int right)
 {
-    int i, j, k;
-    int n1 = m - l + 1;
-    int n2 = r - m;
-    int p;
+    int i, aPos, bPos;
 
-    /* create temp arrays */
-    int* L = malloc(n1 * sizeof(int));
-    int* R = malloc(n2 * sizeof(int));
+	aPos = left;
+	bPos = mid;
 
-    printf("Merging...\n");
+	for (i = left; i < right; i++)
+	{
+		if (aPos < mid && (bPos >= right || array[aPos] <= array[bPos]))
+		{
+			temp[i] = array[aPos];
+			aPos++;
+		}
+		else
+		{
+			temp[i] = array[bPos];
+			bPos++;
+		}
+	}
 
-    /* Copy data to temp arrays L[] and R[] */
-    for (i = 0; i < n1; i++)
-        L[i] = arr[l + i];
-    printf("[left]: %d", L[0]);
-    for(p = 1; p < n1; p++)
-      printf(", %d", L[p]);
-    printf("\n");
-
-    for (j = 0; j < n2; j++)
-        R[j] = arr[m + 1 + j];
-    printf("[right]: %d", R[0]);
-    for(p = 1; p < n2; p++)
-      printf(", %d", R[p]);
-    printf("\n");
-
-    /* Merge the temp arrays back into arr[l..r]*/
-    i = 0; 
-    j = 0; 
-    k = l; 
-    while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            arr[k] = L[i];
-            i++;
-        }
-        else {
-            arr[k] = R[j];
-            j++;
-        }
-        k++;
-    }
-
-
-    /* Copy the remaining elements of L[], if there
-    are any */
-    while (i < n1) {
-        arr[k] = L[i];
-        i++;
-        k++;
-    }
-
-    /* Copy the remaining elements of R[], if there
-    are any */
-    while (j < n2) {
-        arr[k] = R[j];
-        j++;
-        k++;
-    }
-
-    free(L);
-    free(R);
-
-    printf("[Done]: %d", arr[l]);
-    for(p = l + 1; p <= r; p++)
-      printf(", %d", arr[p]);
-    printf("\n");
 }
 
 
 /**
  * sort - splits array into halves, then calls itself recursively before passing onto merge function
  * @arr: array of ints
- * @l: left side of array
- * @r: right side of array
+ * @temp: temporary array
+ * @left: left side of array
+ * @right: right side of array
  * Return: void
  */
 
-void sort(int arr[], int l, int r)
+void sort(int *arr, int *temp, int left, int right)
 {
-    if (l < r) {
+    int mid;
 
-    int m = l + (r - l) / 2;
+	if (right - left <= 1)
+		return;
 
-    sort(arr, l, m);
-    sort(arr, m + 1, r);
+	mid = (left + right) / 2;
 
-    merge(arr, l, m, r);
-    }
+	/* recursively split */
+	sort(temp, arr, left, mid);
+	sort(temp, arr, mid, right);
+
+	/* merge back together */
+	merge(arr, temp, left, mid, right);
+
+	printf("Merging...\n[left]: ");
+	print_subarray(arr, left, mid);
+	printf("[right]: ");
+	print_subarray(arr, mid, right);
+	printf("[Done]: ");
+	print_subarray(temp, left, right);
 }
 
 /**
@@ -110,11 +76,19 @@ void sort(int arr[], int l, int r)
 
 void merge_sort(int *array, size_t size)
 {
+    int *temp, i;
+
     if (array == NULL)
 		return;
 	if (size < 2)
 	{
 		return;
 	}
-    sort(array, 0, size - 1);
+    temp = malloc(sizeof(int) * size);
+	if (!temp)
+		return;
+    for (i = 0; i < (int)size; i++)
+		temp[i] = array[i];
+    sort(temp, array, 0, size);
+    free(temp);
 }
