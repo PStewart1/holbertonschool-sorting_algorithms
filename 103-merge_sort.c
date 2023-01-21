@@ -33,6 +33,21 @@ void merge(int *array, int *temp, int left, int mid, int right)
 
 }
 
+/**
+ * print_subarray - prints a subarray given start and end
+ *
+ * @arr: array containing subarray to print
+ * @start: first index to print
+ * @end: index to print to
+ */
+void print_subarray(int *arr, int start, int end)
+{
+	int i;
+
+	for (i = start; i < end - 1; i++)
+		printf("%d, ", arr[i]);
+	printf("%d\n", arr[i]);
+}
 
 /**
  * sort - splits array into halves, then calls itself recursively before passing onto merge function
