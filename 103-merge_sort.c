@@ -2,7 +2,7 @@
 
 /**
  * merge - rearranges subarray before re-merging them back together
- * @arr: array of ints
+ * @array: array of ints
  * @temp: temporary array
  * @left: left side of array
  * @mid: middle of array
@@ -12,7 +12,7 @@
 
 void merge(int *array, int *temp, int left, int mid, int right)
 {
-    int i, aPos, bPos;
+	int i, aPos, bPos;
 
 	aPos = left;
 	bPos = mid;
@@ -30,7 +30,6 @@ void merge(int *array, int *temp, int left, int mid, int right)
 			bPos++;
 		}
 	}
-
 }
 
 /**
@@ -50,7 +49,8 @@ void print_subarray(int *arr, int start, int end)
 }
 
 /**
- * sort - splits array into halves, then calls itself recursively before passing onto merge function
+ * sort - splits array into halves,
+ *  then calls itself recursively before passing onto merge function
  * @arr: array of ints
  * @temp: temporary array
  * @left: left side of array
@@ -60,7 +60,7 @@ void print_subarray(int *arr, int start, int end)
 
 void sort(int *arr, int *temp, int left, int right)
 {
-    int mid;
+	int mid;
 
 	if (right - left <= 1)
 		return;
@@ -91,19 +91,17 @@ void sort(int *arr, int *temp, int left, int right)
 
 void merge_sort(int *array, size_t size)
 {
-    int *temp, i;
+	int *temp, i;
 
-    if (array == NULL)
+	if (array == NULL)
 		return;
 	if (size < 2)
-	{
 		return;
-	}
-    temp = malloc(sizeof(int) * size);
+	temp = malloc(sizeof(int) * size);
 	if (!temp)
 		return;
-    for (i = 0; i < (int)size; i++)
+	for (i = 0; i < (int)size; i++)
 		temp[i] = array[i];
-    sort(temp, array, 0, size);
-    free(temp);
+	sort(temp, array, 0, size);
+	free(temp);
 }
