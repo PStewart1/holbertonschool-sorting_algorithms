@@ -6,11 +6,12 @@
  * @size: size of array
  * Return: max element
  */
-int getMax(int array[], int size)
+int get_max(int array[], int size)
 {
 	int max = array[0];
+	int i;
 
-	for (int i = 1; i < size; i++)
+	for (i = 1; i < size; i++)
 		if (array[i] > max)
 			max = array[i];
 	return (max);
@@ -78,7 +79,7 @@ void radix_sort(int *array, size_t size)
 {
 	int place, max, i, o = 0;
 
-	max = getMax(array, size);
+	max = get_max(array, size);
 	for (i = 0; i < (int)size; i++)
 	{
 		if (array[i] == 0)
