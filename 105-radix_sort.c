@@ -43,7 +43,6 @@ int *mallocate(int size)
  * @array: array to sort
  * @size: size of array
  * @place: current place we're sorting by
- * @o: number of 0's in array
  * Return: void
  */
 void sorting_out(int *array, int size, int place)
